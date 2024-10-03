@@ -1,0 +1,7 @@
+import { type ConfigParameter, type FuncOrVal, type QueryParameter, type RuneReturnType } from "../types";
+import type { QueryObserverResult } from "@tanstack/svelte-query";
+import { type Config, type GetTransactionConfirmationsErrorType, type ResolvedRegister } from "@wagmi/core";
+import { type GetTransactionConfirmationsData, type GetTransactionConfirmationsOptions, type GetTransactionConfirmationsQueryFnData, type GetTransactionConfirmationsQueryKey } from "@wagmi/core/query";
+export type CreateTransactionConfirmationsParameters<config extends Config = Config, chainId extends config["chains"][number]["id"] | undefined = undefined, selectData = GetTransactionConfirmationsData> = FuncOrVal<GetTransactionConfirmationsOptions<config, chainId> & ConfigParameter<config> & QueryParameter<GetTransactionConfirmationsQueryFnData, GetTransactionConfirmationsErrorType, selectData, GetTransactionConfirmationsQueryKey<config, chainId>>>;
+export type CreateTransactionConfirmationsReturnType<selectData = GetTransactionConfirmationsData> = RuneReturnType<QueryObserverResult<selectData, GetTransactionConfirmationsErrorType>>;
+export declare function createTransactionConfirmations<config extends Config = ResolvedRegister["config"], chainId extends config["chains"][number]["id"] | undefined = undefined, selectData = GetTransactionConfirmationsData>(parameters?: CreateTransactionConfirmationsParameters<config, chainId, selectData>): CreateTransactionConfirmationsReturnType<selectData>;

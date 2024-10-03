@@ -1,0 +1,8 @@
+import { type ConfigParameter, type QueryParameter, type RuneReturnType, type FuncOrVal } from "../types";
+import { type QueryObserverResult } from "@tanstack/svelte-query";
+import { type Config, type GetEnsAddressErrorType, type ResolvedRegister } from "@wagmi/core";
+import { type Evaluate } from "@wagmi/core/internal";
+import { type GetEnsAddressData, type GetEnsAddressOptions, type GetEnsAddressQueryFnData, type GetEnsAddressQueryKey } from "@wagmi/core/query";
+export type CreateEnsAddressParameters<config extends Config = Config, selectData = GetEnsAddressData> = FuncOrVal<Evaluate<GetEnsAddressOptions<config> & ConfigParameter<config> & QueryParameter<GetEnsAddressQueryFnData, GetEnsAddressErrorType, selectData, GetEnsAddressQueryKey<config>>>>;
+export type CreateEnsAddressReturnType<selectData = GetEnsAddressData> = RuneReturnType<QueryObserverResult<selectData, GetEnsAddressErrorType>>;
+export declare function createEnsAddress<config extends Config = ResolvedRegister["config"], selectData = GetEnsAddressData>(parameters?: CreateEnsAddressParameters<config, selectData>): CreateEnsAddressReturnType<selectData>;
