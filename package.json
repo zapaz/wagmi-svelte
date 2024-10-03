@@ -1,6 +1,6 @@
 {
-  "name": "@byteatatime/wagmi-svelte",
-  "version": "0.1.0",
+  "name": "@zapaz/wagmi-svelte",
+  "version": "0.2.0",
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
