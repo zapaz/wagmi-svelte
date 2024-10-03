@@ -38,7 +38,7 @@ const { address, chainId, status } = $derived.by(createAccount()); // createAcco
 First, install the library:
 
 ```
-$ pnpm add @byteatatime/wagmi-svelte
+$ pnpm add @zapaz/wagmi-svelte
 ```
 
 Then, you need to wrap everything that will use these hooks in the `WagmiProvider` component. If not all the pages will do so, I would recommend creating a [group](https://kit.svelte.dev/docs/advanced-routing#advanced-layouts-group) and putting it in the `+layout.svelte` file. Otherwise, just put it inside the layout at the root of the project.
