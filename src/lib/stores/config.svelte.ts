@@ -11,6 +11,7 @@ export type CreateConfigReturnType<config extends Config = Config> = RuneReturnT
 export const createConfig = <config extends Config = ResolvedRegister["config"]>(
   parameters: CreateConfigParameters<config> = {},
 ): CreateConfigReturnType => {
+  /*
   const { config: providerConfig } = getContext<{ config: Config }>("wagmi");
 
   if (!providerConfig) {
@@ -18,6 +19,10 @@ export const createConfig = <config extends Config = ResolvedRegister["config"]>
   }
 
   const config = $derived(resolveVal(parameters).config ?? providerConfig);
+  */
+  const config = $derived(resolveVal(parameters).config);
+
+  if (!config) throw new Error("config is undefined");
 
   return () => config;
 };

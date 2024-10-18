@@ -27,7 +27,9 @@
     active = false;
   });
 
+  /*
   setContext("wagmi", configState);
+  */
 
   const queryClient = new QueryClient();
 </script>
