@@ -8,7 +8,7 @@ import { createQuery } from "../query";
 import { runeToStore, storeToRune } from "../runes.svelte";
 export function createFeeHistory(parameters = {}) {
     const resolvedParameters = $derived(resolveVal(parameters));
-    const { blockCount, rewardPercentiles, query = {} } = $derived(resolvedParameters);
+    const { blockCount, rewardPercentiles, query = {}, } = $derived(resolvedParameters);
     const config = $derived.by(createConfig(parameters));
     const configChainId = $derived.by(createChainId());
     const chainId = $derived(resolvedParameters.chainId ?? configChainId);

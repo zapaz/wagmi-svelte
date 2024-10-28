@@ -1,13 +1,13 @@
 import { createQuery } from "../query";
 import { runeToStore, storeToRune } from "../runes.svelte";
 import { resolveVal, } from "../types";
-import { useQueryClient } from "@tanstack/svelte-query";
+import { useQueryClient, } from "@tanstack/svelte-query";
 import {} from "@wagmi/core";
 import {} from "@wagmi/core/internal";
 import { getBlockQueryOptions, } from "@wagmi/core/query";
 import { createChainId } from "./chain-id.svelte";
 import { createConfig } from "./config.svelte";
-import { createWatchBlocks } from "./watch-blocks.svelte";
+import { createWatchBlocks, } from "./watch-blocks.svelte";
 export function createBlock(parameters = {}) {
     const resolvedParameters = $derived(resolveVal(parameters));
     const { query = {}, watch } = $derived(resolvedParameters);

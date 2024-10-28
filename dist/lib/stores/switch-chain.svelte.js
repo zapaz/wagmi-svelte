@@ -1,5 +1,5 @@
-import { resolveVal } from "../types";
-import { createMutation } from "@tanstack/svelte-query";
+import { resolveVal, } from "../types";
+import { createMutation, } from "@tanstack/svelte-query";
 import {} from "@wagmi/core";
 import {} from "@wagmi/core/internal";
 import { switchChainMutationOptions, } from "@wagmi/core/query";

@@ -1,4 +1,4 @@
-import { resolveVal } from "../types";
+import { resolveVal, } from "../types";
 import { getPublicClient, watchPublicClient, } from "@wagmi/core";
 import { createConfig } from "./config.svelte";
 export function createPublicClient(parameters = {}) {

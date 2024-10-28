@@ -8,7 +8,7 @@ import { derived } from "svelte/store";
 import { runeToStore, storeToRune } from "../runes.svelte";
 export function createTransaction(parameters = {}) {
     const resolvedParameters = $derived(resolveVal(parameters));
-    const { blockHash, blockNumber, blockTag, hash, query = {} } = $derived(resolvedParameters);
+    const { blockHash, blockNumber, blockTag, hash, query = {}, } = $derived(resolvedParameters);
     const config = $derived.by(createConfig(parameters));
     const configChainId = $derived.by(createChainId());
     const chainId = $derived(resolvedParameters.chainId ?? configChainId);
@@ -16,7 +16,8 @@ export function createTransaction(parameters = {}) {
         ...resolvedParameters,
         chainId,
     }));
-    const enabled = $derived(Boolean(!(blockHash && blockNumber && blockTag && hash) && (query.enabled ?? true)));
+    const enabled = $derived(Boolean(!(blockHash && blockNumber && blockTag && hash) &&
+        (query.enabled ?? true)));
     const store = createQuery(runeToStore(() => ({
         ...query,
         ...options,

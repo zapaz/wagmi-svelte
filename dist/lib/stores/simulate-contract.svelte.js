@@ -7,7 +7,7 @@ import { runeToStore, storeToRune } from "../runes.svelte";
 import { createQuery } from "../query";
 export function createSimulateContract(parameters = {}) {
     const resolvedParameters = $derived(resolveVal(parameters));
-    const { abi, address, connector, functionName, query = {} } = $derived(resolvedParameters);
+    const { abi, address, connector, functionName, query = {}, } = $derived(resolvedParameters);
     const config = $derived.by(createConfig(parameters));
     const connectorClient = $derived.by(createConnectorClient(() => ({
         connector,

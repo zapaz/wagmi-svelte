@@ -1,4 +1,4 @@
-import { getConnectors, watchConnectors } from "@wagmi/core";
+import { getConnectors, watchConnectors, } from "@wagmi/core";
 import { createConfig } from "./config.svelte";
 export function createConnectors(parameters = {}) {
     const config = $derived.by(createConfig(parameters));

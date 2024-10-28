@@ -1,5 +1,5 @@
-import { resolveVal } from "../types";
-import { getConnections, watchConnections } from "@wagmi/core";
+import { resolveVal, } from "../types";
+import { getConnections, watchConnections, } from "@wagmi/core";
 import { createConfig } from "./config.svelte";
 export function createConnections(parameters = {}) {
     const config = $derived.by(createConfig(parameters));

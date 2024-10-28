@@ -1,5 +1,5 @@
-import { resolveVal } from "../types";
-import { createMutation } from "@tanstack/svelte-query";
+import { resolveVal, } from "../types";
+import { createMutation, } from "@tanstack/svelte-query";
 import { sendTransactionMutationOptions, } from "@wagmi/core/query";
 import { createConfig } from "./config.svelte";
 import { storeToRune } from "../runes.svelte";

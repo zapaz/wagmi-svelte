@@ -1,3 +1,4 @@
+/// <reference types="svelte" />
 import type { DefaultError, QueryKey } from "@tanstack/svelte-query";
 import type { Config } from "@wagmi/core";
 import type { CreateInfiniteQueryParameters, CreateQueryParameters } from "./query";

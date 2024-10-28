@@ -3,7 +3,7 @@ import { type ConfigParameter, type FuncOrVal, type RuneReturnType } from "../ty
 import { type QueryObserverResult } from "@tanstack/svelte-query";
 import type { Config, GetWalletClientErrorType, ResolvedRegister } from "@wagmi/core";
 import { type GetWalletClientData, type GetWalletClientOptions, type GetWalletClientQueryFnData, type GetWalletClientQueryKey } from "@wagmi/core/query";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "../types-utils";
 export type CreateWalletClientParameters<config extends Config = Config, chainId extends config["chains"][number]["id"] = config["chains"][number]["id"], selectData = GetWalletClientData<config, chainId>> = FuncOrVal<Evaluate<GetWalletClientOptions<config, chainId> & ConfigParameter<config> & {
     query?: Evaluate<Omit<CreateQueryParameters<GetWalletClientQueryFnData<config, chainId>, GetWalletClientErrorType, selectData, GetWalletClientQueryKey<config, chainId>>, "gcTime" | "staleTime">> | undefined;
 }>>;

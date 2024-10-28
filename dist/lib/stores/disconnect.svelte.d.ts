@@ -2,7 +2,7 @@ import type { CreateMutationParameters } from "../query";
 import { type ConfigParameter, type RuneReturnType, type FuncOrVal } from "../types";
 import { type MutationObserverResult } from "@tanstack/svelte-query";
 import { type Connector, type DisconnectErrorType } from "@wagmi/core";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "../types-utils";
 import { type DisconnectData, type DisconnectMutate, type DisconnectMutateAsync, type DisconnectVariables } from "@wagmi/core/query";
 export type CreateDisconnectParameters<context = unknown> = FuncOrVal<Evaluate<ConfigParameter & {
     mutation?: CreateMutationParameters<DisconnectData, DisconnectErrorType, DisconnectVariables, context> | undefined;

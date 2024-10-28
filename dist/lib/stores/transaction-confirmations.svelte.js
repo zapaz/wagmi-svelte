@@ -15,7 +15,9 @@ export function createTransactionConfirmations(parameters = {}) {
         ...resolvedParameters,
         chainId,
     }));
-    const enabled = $derived(Boolean(!(hash && transactionReceipt) && (hash || transactionReceipt) && (query.enabled ?? true)));
+    const enabled = $derived(Boolean(!(hash && transactionReceipt) &&
+        (hash || transactionReceipt) &&
+        (query.enabled ?? true)));
     const store = createQuery(runeToStore(() => ({ ...query, ...options, enabled })));
     return storeToRune(store);
 }

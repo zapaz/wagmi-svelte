@@ -1,3 +1,4 @@
+/// <reference types="svelte" />
 import { type CreateInfiniteQueryOptions, type CreateInfiniteQueryResult, type CreateMutationOptions, type CreateQueryOptions, type DefaultError, type MutationObserverResult, type QueryKey, type QueryObserverResult, type StoreOrVal } from "@tanstack/svelte-query";
 import { type Evaluate, type ExactPartial, type Omit } from "@wagmi/core/internal";
 import { type Readable } from "svelte/store";

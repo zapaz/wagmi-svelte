@@ -2,7 +2,7 @@ import type { CreateMutationParameters } from "../query";
 import { type ConfigParameter, type FuncOrVal, type RuneReturnType } from "../types";
 import { type MutationObserverResult } from "@tanstack/svelte-query";
 import { type Connector, type ReconnectErrorType } from "@wagmi/core";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "../types-utils";
 import { type ReconnectData, type ReconnectMutate, type ReconnectMutateAsync, type ReconnectVariables } from "@wagmi/core/query";
 export type CreateReconnectParameters<context = unknown> = FuncOrVal<Evaluate<ConfigParameter & {
     mutation?: CreateMutationParameters<ReconnectData, ReconnectErrorType, ReconnectVariables, context> | undefined;

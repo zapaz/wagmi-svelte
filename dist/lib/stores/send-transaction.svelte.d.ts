@@ -2,7 +2,7 @@ import type { CreateMutationParameters } from "../query";
 import { type ConfigParameter, type RuneReturnType, type FuncOrVal } from "../types";
 import { type MutationObserverResult } from "@tanstack/svelte-query";
 import type { Config, ResolvedRegister, SendTransactionErrorType } from "@wagmi/core";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "../types-utils";
 import { type SendTransactionData, type SendTransactionMutate, type SendTransactionMutateAsync, type SendTransactionVariables } from "@wagmi/core/query";
 export type UseSendTransactionParameters<config extends Config = Config, context = unknown> = FuncOrVal<Evaluate<ConfigParameter<config> & {
     mutation?: CreateMutationParameters<SendTransactionData, SendTransactionErrorType, SendTransactionVariables<config, config["chains"][number]["id"]>, context> | undefined;

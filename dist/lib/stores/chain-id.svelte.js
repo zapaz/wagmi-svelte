@@ -1,4 +1,4 @@
-import { watchChainId, getChainId } from "@wagmi/core";
+import { watchChainId, getChainId, } from "@wagmi/core";
 import { createConfig } from "./config.svelte";
 export const createChainId = (parameters = {}) => {
     const config = $derived.by(createConfig(parameters));

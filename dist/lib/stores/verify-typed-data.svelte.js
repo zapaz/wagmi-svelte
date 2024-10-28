@@ -15,7 +15,12 @@ export function createVerifyTypedData(parameters = {}) {
         ...resolvedParameters,
         chainId,
     }));
-    const enabled = $derived(Boolean(address && message && primaryType && signature && types && (query.enabled ?? true)));
+    const enabled = $derived(Boolean(address &&
+        message &&
+        primaryType &&
+        signature &&
+        types &&
+        (query.enabled ?? true)));
     const store = createQuery(runeToStore(() => ({ ...query, ...options, enabled })));
     return storeToRune(store);
 }

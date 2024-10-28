@@ -1,7 +1,7 @@
 import { createQuery } from "../query";
 import { runeToStore, storeToRune } from "../runes.svelte";
 import { resolveVal, } from "../types";
-import { useQueryClient } from "@tanstack/svelte-query";
+import { useQueryClient, } from "@tanstack/svelte-query";
 import {} from "@wagmi/core";
 import {} from "@wagmi/core/internal";
 import { getBlockNumberQueryOptions, } from "@wagmi/core/query";
@@ -25,7 +25,8 @@ export function createBlockNumber(parameters = {}) {
             chainId: resolvedParameters.chainId,
             ...(typeof watch === "object" ? watch : {}),
         },
-        enabled: Boolean((query.enabled ?? true) && (typeof watch === "object" ? watch.enabled : watch)),
+        enabled: Boolean((query.enabled ?? true) &&
+            (typeof watch === "object" ? watch.enabled : watch)),
         onBlockNumber(blockNumber) {
             queryClient.setQueryData(options.queryKey, blockNumber);
         },
