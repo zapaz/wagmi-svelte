@@ -1,4 +1,7 @@
-<div class="flex bg-sky-900 rounded-lg p-4 my-4 text-[0.9em] text-blue-200" role="alert">
+<div
+  class="flex bg-sky-900 rounded-lg p-4 my-4 text-[0.9em] text-blue-200"
+  role="alert"
+>
   <svg
     class="w-10 h-10 inline mr-3"
     fill="currentColor"

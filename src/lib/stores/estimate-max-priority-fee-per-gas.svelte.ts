@@ -30,25 +30,30 @@ export type CreateEstimateMaxPriorityFeePerGasParameters<
 > = FuncOrVal<
   Evaluate<
     EstimateMaxPriorityFeePerGasOptions<config> &
-    ConfigParameter<config> &
-    QueryParameter<
-      EstimateMaxPriorityFeePerGasQueryFnData,
-      EstimateMaxPriorityFeePerGasErrorType,
-      selectData,
-      EstimateMaxPriorityFeePerGasQueryKey<config>
-    >
+      ConfigParameter<config> &
+      QueryParameter<
+        EstimateMaxPriorityFeePerGasQueryFnData,
+        EstimateMaxPriorityFeePerGasErrorType,
+        selectData,
+        EstimateMaxPriorityFeePerGasQueryKey<config>
+      >
   >
 >;
 
 export type CreateEstimateMaxPriorityFeePerGasReturnType<
   selectData = EstimateMaxPriorityFeePerGasData,
-> = RuneReturnType<QueryObserverResult<selectData, EstimateMaxPriorityFeePerGasErrorType>>;
+> = RuneReturnType<
+  QueryObserverResult<selectData, EstimateMaxPriorityFeePerGasErrorType>
+>;
 
 export function createEstimateMaxPriorityFeePerGas<
   config extends Config = ResolvedRegister["config"],
   selectData = EstimateMaxPriorityFeePerGasData,
 >(
-  parameters: CreateEstimateMaxPriorityFeePerGasParameters<config, selectData> = {},
+  parameters: CreateEstimateMaxPriorityFeePerGasParameters<
+    config,
+    selectData
+  > = {},
 ): CreateEstimateMaxPriorityFeePerGasReturnType<selectData> {
   const resolvedParameters = $derived(resolveVal(parameters));
   const { query = {} } = $derived(resolvedParameters);

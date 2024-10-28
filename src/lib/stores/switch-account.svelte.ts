@@ -1,7 +1,20 @@
 import type { CreateMutationParameters } from "$lib/query";
-import { resolveVal, type ConfigParameter, type FuncOrVal, type RuneReturnType } from "$lib/types";
-import { createMutation, type MutationObserverResult } from "@tanstack/svelte-query";
-import type { Config, Connector, ResolvedRegister, SwitchAccountErrorType } from "@wagmi/core";
+import {
+  resolveVal,
+  type ConfigParameter,
+  type FuncOrVal,
+  type RuneReturnType,
+} from "$lib/types";
+import {
+  createMutation,
+  type MutationObserverResult,
+} from "@tanstack/svelte-query";
+import type {
+  Config,
+  Connector,
+  ResolvedRegister,
+  SwitchAccountErrorType,
+} from "@wagmi/core";
 import type { Evaluate } from "@wagmi/core/internal";
 import {
   type SwitchAccountData,
@@ -21,13 +34,13 @@ export type CreateSwitchAccountParameters<
   Evaluate<
     ConfigParameter<config> & {
       mutation?:
-      | CreateMutationParameters<
-        SwitchAccountData<config>,
-        SwitchAccountErrorType,
-        SwitchAccountVariables,
-        context
-      >
-      | undefined;
+        | CreateMutationParameters<
+            SwitchAccountData<config>,
+            SwitchAccountErrorType,
+            SwitchAccountVariables,
+            context
+          >
+        | undefined;
     }
   >
 >;
@@ -81,6 +94,7 @@ export function createSwitchAccount<
     connectors: connections.map((connection) => connection.connector),
     mutate: mutateResult.mutate as Return["mutate"],
     switchAccount: mutateResult.mutate as Return["switchAccount"],
-    switchAccountAsync: mutateResult.mutateAsync as Return["switchAccountAsync"],
+    switchAccountAsync:
+      mutateResult.mutateAsync as Return["switchAccountAsync"],
   });
 }

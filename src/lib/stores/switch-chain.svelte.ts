@@ -1,6 +1,14 @@
 import type { CreateMutationParameters } from "$lib/query";
-import { resolveVal, type ConfigParameter, type FuncOrVal, type RuneReturnType } from "$lib/types";
-import { createMutation, type MutationObserverResult } from "@tanstack/svelte-query";
+import {
+  resolveVal,
+  type ConfigParameter,
+  type FuncOrVal,
+  type RuneReturnType,
+} from "$lib/types";
+import {
+  createMutation,
+  type MutationObserverResult,
+} from "@tanstack/svelte-query";
 import {
   type Config,
   type GetChainsReturnType,
@@ -26,13 +34,13 @@ export type CreateSwitchChainParameters<
   Evaluate<
     ConfigParameter<config> & {
       mutation?:
-      | CreateMutationParameters<
-        SwitchChainData<config, config["chains"][number]["id"]>,
-        SwitchChainErrorType,
-        SwitchChainVariables<config, config["chains"][number]["id"]>,
-        context
-      >
-      | undefined;
+        | CreateMutationParameters<
+            SwitchChainData<config, config["chains"][number]["id"]>,
+            SwitchChainErrorType,
+            SwitchChainVariables<config, config["chains"][number]["id"]>,
+            context
+          >
+        | undefined;
     }
   >
 >;
@@ -67,7 +75,9 @@ export function createSwitchChain<
   const config = $derived.by(createConfig(parameters));
   const chains = $derived.by(createChains({ config }));
 
-  const mutationOptions = $derived(switchChainMutationOptions<config>(config as config));
+  const mutationOptions = $derived(
+    switchChainMutationOptions<config>(config as config),
+  );
   const store = createMutation<
     SwitchChainData<config, config["chains"][number]["id"]>,
     SwitchChainErrorType,

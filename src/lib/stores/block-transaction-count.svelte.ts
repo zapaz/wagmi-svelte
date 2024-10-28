@@ -26,30 +26,39 @@ import { createChainId } from "./chain-id.svelte";
 
 export type CreateBlockTransactionCountParameters<
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = GetBlockTransactionCountData,
 > = FuncOrVal<
   UnionEvaluate<
     GetBlockTransactionCountOptions<config, chainId> &
-    ConfigParameter<config> &
-    QueryParameter<
-      GetBlockTransactionCountQueryFnData,
-      GetBlockTransactionCountErrorType,
-      selectData,
-      GetBlockTransactionCountQueryKey<config, chainId>
-    >
+      ConfigParameter<config> &
+      QueryParameter<
+        GetBlockTransactionCountQueryFnData,
+        GetBlockTransactionCountErrorType,
+        selectData,
+        GetBlockTransactionCountQueryKey<config, chainId>
+      >
   >
 >;
 
-export type CreateBlockTransactionCountReturnType<selectData = GetBlockTransactionCountData> =
-  RuneReturnType<QueryObserverResult<selectData, GetBlockTransactionCountErrorType>>;
+export type CreateBlockTransactionCountReturnType<
+  selectData = GetBlockTransactionCountData,
+> = RuneReturnType<
+  QueryObserverResult<selectData, GetBlockTransactionCountErrorType>
+>;
 
 export function createBlockTransactionCount<
   config extends Config = ResolvedRegister["config"],
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = GetBlockTransactionCountData,
 >(
-  parameters: CreateBlockTransactionCountParameters<config, chainId, selectData> = {},
+  parameters: CreateBlockTransactionCountParameters<
+    config,
+    chainId,
+    selectData
+  > = {},
 ): CreateBlockTransactionCountReturnType<selectData> {
   const resolvedParameters = $derived(resolveVal(parameters));
   const { query = {} } = $derived(resolvedParameters);

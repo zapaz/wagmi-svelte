@@ -19,12 +19,15 @@ export type CreateWatchBlocksParameters<
   includeTransactions extends boolean = false,
   blockTag extends BlockTag = "latest",
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
 > = FuncOrVal<
   UnionEvaluate<
-    UnionPartial<WatchBlocksParameters<includeTransactions, blockTag, config, chainId>> &
-    ConfigParameter<config> &
-    EnabledParameter
+    UnionPartial<
+      WatchBlocksParameters<includeTransactions, blockTag, config, chainId>
+    > &
+      ConfigParameter<config> &
+      EnabledParameter
   >
 >;
 
@@ -32,7 +35,8 @@ export type CreateWatchBlocksReturnType = void;
 
 export function createWatchBlocks<
   config extends Config = ResolvedRegister["config"],
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   includeTransactions extends boolean = false,
   blockTag extends BlockTag = "latest",
 >(

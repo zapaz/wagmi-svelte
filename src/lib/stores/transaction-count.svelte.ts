@@ -24,16 +24,18 @@ export type CreateTransactionCountParameters<
   selectData = GetTransactionCountData,
 > = FuncOrVal<
   GetTransactionCountOptions<config> &
-  ConfigParameter<config> &
-  QueryParameter<
-    GetTransactionCountQueryFnData,
-    GetTransactionCountErrorType,
-    selectData,
-    GetTransactionCountQueryKey<config>
-  >
+    ConfigParameter<config> &
+    QueryParameter<
+      GetTransactionCountQueryFnData,
+      GetTransactionCountErrorType,
+      selectData,
+      GetTransactionCountQueryKey<config>
+    >
 >;
 
-export type CreateTransactionCountReturnType<selectData = GetTransactionCountData> = RuneReturnType<
+export type CreateTransactionCountReturnType<
+  selectData = GetTransactionCountData,
+> = RuneReturnType<
   QueryObserverResult<selectData, GetTransactionCountErrorType>
 >;
 
@@ -55,7 +57,9 @@ export function createTransactionCount(
   );
   const enabled = $derived(Boolean(address && (query.enabled ?? true)));
 
-  const store = createQuery(runeToStore(() => ({ ...query, ...options, enabled })));
+  const store = createQuery(
+    runeToStore(() => ({ ...query, ...options, enabled })),
+  );
 
   return storeToRune(store);
 }

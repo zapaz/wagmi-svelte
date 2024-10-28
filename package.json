@@ -3,15 +3,16 @@
   "version": "0.2.0",
   "license": "MIT",
   "scripts": {
-    "dev": "vite dev",
+    "all": "pnpm run format && pnpm run check && pnpm run build",
+    "format": "prettier --write .",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && pnpm run lint",
     "build": "vite build && npm run package",
+    "dev": "vite dev",
     "package": "svelte-kit sync && svelte-package -o 'dist/lib' && publint",
     "preview": "vite preview",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "test": "vitest",
-    "lint": "prettier --check . && eslint .",
-    "format": "prettier --write ."
+    "lint": "prettier --check . && eslint ."
   },
   "files": [
     "package.json",
@@ -65,5 +66,10 @@
     "@wagmi/core": "^2.13.8",
     "svelte": "5.0.0-next.260",
     "viem": "^2.21.17"
+  },
+  "packageManager": "pnpm@9.12.3",
+  "engines": {
+    "node": "^20",
+    "pnpm": "^9"
   }
 }

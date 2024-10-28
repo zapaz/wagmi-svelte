@@ -6,7 +6,11 @@ import {
   type RuneReturnType,
 } from "$lib/types";
 import type { QueryObserverResult } from "@tanstack/svelte-query";
-import type { Config, ResolvedRegister, SimulateContractErrorType } from "@wagmi/core";
+import type {
+  Config,
+  ResolvedRegister,
+  SimulateContractErrorType,
+} from "@wagmi/core";
 import {
   type SimulateContractData,
   type SimulateContractOptions,
@@ -23,10 +27,10 @@ import { createQuery } from "$lib/query";
 
 export type CreateSimulateContractParameters<
   abi extends Abi | readonly unknown[] = Abi,
-  functionName extends ContractFunctionName<abi, "nonpayable" | "payable"> = ContractFunctionName<
+  functionName extends ContractFunctionName<
     abi,
     "nonpayable" | "payable"
-  >,
+  > = ContractFunctionName<abi, "nonpayable" | "payable">,
   args extends ContractFunctionArgs<
     abi,
     "nonpayable" | "payable",
@@ -37,21 +41,21 @@ export type CreateSimulateContractParameters<
   selectData = SimulateContractData<abi, functionName, args, config, chainId>,
 > = FuncOrVal<
   SimulateContractOptions<abi, functionName, args, config, chainId> &
-  ConfigParameter<config> &
-  QueryParameter<
-    SimulateContractQueryFnData<abi, functionName, args, config, chainId>,
-    SimulateContractErrorType,
-    selectData,
-    SimulateContractQueryKey<abi, functionName, args, config, chainId>
-  >
+    ConfigParameter<config> &
+    QueryParameter<
+      SimulateContractQueryFnData<abi, functionName, args, config, chainId>,
+      SimulateContractErrorType,
+      selectData,
+      SimulateContractQueryKey<abi, functionName, args, config, chainId>
+    >
 >;
 
 export type CreateSimulateContractReturnType<
   abi extends Abi | readonly unknown[] = Abi,
-  functionName extends ContractFunctionName<abi, "nonpayable" | "payable"> = ContractFunctionName<
+  functionName extends ContractFunctionName<
     abi,
     "nonpayable" | "payable"
-  >,
+  > = ContractFunctionName<abi, "nonpayable" | "payable">,
   args extends ContractFunctionArgs<
     abi,
     "nonpayable" | "payable",
@@ -65,7 +69,11 @@ export type CreateSimulateContractReturnType<
 export function createSimulateContract<
   const abi extends Abi | readonly unknown[],
   functionName extends ContractFunctionName<abi, "nonpayable" | "payable">,
-  args extends ContractFunctionArgs<abi, "nonpayable" | "payable", functionName>,
+  args extends ContractFunctionArgs<
+    abi,
+    "nonpayable" | "payable",
+    functionName
+  >,
   config extends Config = ResolvedRegister["config"],
   chainId extends config["chains"][number]["id"] | undefined = undefined,
   selectData = SimulateContractData<abi, functionName, args, config, chainId>,
@@ -78,9 +86,22 @@ export function createSimulateContract<
     chainId,
     selectData
   > = {} as any,
-): CreateSimulateContractReturnType<abi, functionName, args, config, chainId, selectData> {
+): CreateSimulateContractReturnType<
+  abi,
+  functionName,
+  args,
+  config,
+  chainId,
+  selectData
+> {
   const resolvedParameters = $derived(resolveVal(parameters));
-  const { abi, address, connector, functionName, query = {} } = $derived(resolvedParameters);
+  const {
+    abi,
+    address,
+    connector,
+    functionName,
+    query = {},
+  } = $derived(resolvedParameters);
 
   const config = $derived.by(createConfig(parameters));
   const connectorClient = $derived.by(
@@ -93,15 +114,22 @@ export function createSimulateContract<
   const chainId = $derived(resolvedParameters.chainId ?? configChainId);
 
   const options = $derived(
-    simulateContractQueryOptions<config, abi, functionName, args, chainId>(config as config, {
-      ...resolvedParameters,
-      account: resolvedParameters.account ?? connectorClient.data?.account,
-      chainId,
-    }),
+    simulateContractQueryOptions<config, abi, functionName, args, chainId>(
+      config as config,
+      {
+        ...resolvedParameters,
+        account: resolvedParameters.account ?? connectorClient.data?.account,
+        chainId,
+      },
+    ),
   );
-  const enabled = $derived(Boolean(abi && address && functionName && (query.enabled ?? true)));
+  const enabled = $derived(
+    Boolean(abi && address && functionName && (query.enabled ?? true)),
+  );
 
-  const store = createQuery(runeToStore(() => ({ ...query, ...options, enabled })));
+  const store = createQuery(
+    runeToStore(() => ({ ...query, ...options, enabled })),
+  );
 
   return storeToRune(store);
 }

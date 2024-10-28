@@ -7,7 +7,11 @@ import {
   type ParamType,
 } from "$lib/types";
 import type { InfiniteQueryObserverResult } from "@tanstack/svelte-query";
-import type { Config, ReadContractsErrorType, ResolvedRegister } from "@wagmi/core";
+import type {
+  Config,
+  ReadContractsErrorType,
+  ResolvedRegister,
+} from "@wagmi/core";
 import {
   infiniteReadContractsQueryOptions,
   type InfiniteReadContractsData,
@@ -33,22 +37,24 @@ export type CreateInfiniteContractReadsParameters<
   selectData = InfiniteReadContractsData<contracts, allowFailure>,
 > = FuncOrVal<
   InfiniteReadContractsOptions<contracts, allowFailure, pageParam, config> &
-  ConfigParameter<config> &
-  InfiniteQueryParameter<
-    InfiniteReadContractsQueryFnData<contracts, allowFailure>,
-    ReadContractsErrorType,
-    selectData,
-    InfiniteReadContractsData<contracts, allowFailure>,
-    InfiniteReadContractsQueryKey<contracts, allowFailure, pageParam, config>,
-    pageParam
-  >
+    ConfigParameter<config> &
+    InfiniteQueryParameter<
+      InfiniteReadContractsQueryFnData<contracts, allowFailure>,
+      ReadContractsErrorType,
+      selectData,
+      InfiniteReadContractsData<contracts, allowFailure>,
+      InfiniteReadContractsQueryKey<contracts, allowFailure, pageParam, config>,
+      pageParam
+    >
 >;
 
 export type CreateInfiniteContractReadsReturnType<
   contracts extends readonly unknown[] = readonly ContractFunctionParameters[],
   allowFailure extends boolean = true,
   selectData = InfiniteReadContractsData<contracts, allowFailure>,
-> = RuneReturnType<InfiniteQueryObserverResult<selectData, ReadContractsErrorType>>;
+> = RuneReturnType<
+  InfiniteQueryObserverResult<selectData, ReadContractsErrorType>
+>;
 
 export function createInfiniteReadContracts<
   const contracts extends readonly unknown[],
@@ -75,7 +81,8 @@ export function createInfiniteReadContracts<
     infiniteReadContractsQueryOptions(config, {
       ...resolvedParameters,
       chainId: chainId,
-      contracts: contracts as ParamType<CreateInfiniteContractReadsParameters>["contracts"],
+      contracts:
+        contracts as ParamType<CreateInfiniteContractReadsParameters>["contracts"],
       query: query as CreateInfiniteQueryParameters,
     }),
   );

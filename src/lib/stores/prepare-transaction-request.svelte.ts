@@ -27,28 +27,30 @@ import { runeToStore, storeToRune } from "$lib/runes.svelte";
 
 export type CreatePrepareTransactionRequestParameters<
   parameterType extends
-  viem_PrepareTransactionRequestParameterType = viem_PrepareTransactionRequestParameterType,
+    viem_PrepareTransactionRequestParameterType = viem_PrepareTransactionRequestParameterType,
   config extends Config = Config,
   chainId extends config["chains"][number]["id"] | undefined = undefined,
   selectData = PrepareTransactionRequestData<parameterType, config, chainId>,
 > = FuncOrVal<
   PrepareTransactionRequestOptions<parameterType, config, chainId> &
-  ConfigParameter<config> &
-  QueryParameter<
-    PrepareTransactionRequestQueryFnData<parameterType, config, chainId>,
-    PrepareTransactionRequestErrorType,
-    selectData,
-    PrepareTransactionRequestQueryKey<parameterType, config, chainId>
-  >
+    ConfigParameter<config> &
+    QueryParameter<
+      PrepareTransactionRequestQueryFnData<parameterType, config, chainId>,
+      PrepareTransactionRequestErrorType,
+      selectData,
+      PrepareTransactionRequestQueryKey<parameterType, config, chainId>
+    >
 >;
 
 export type CreatePrepareTransactionRequestReturnType<
   parameterType extends
-  viem_PrepareTransactionRequestParameterType = viem_PrepareTransactionRequestParameterType,
+    viem_PrepareTransactionRequestParameterType = viem_PrepareTransactionRequestParameterType,
   config extends Config = Config,
   chainId extends config["chains"][number]["id"] | undefined = undefined,
   selectData = PrepareTransactionRequestData<parameterType, config, chainId>,
-> = RuneReturnType<QueryObserverResult<selectData, PrepareTransactionRequestErrorType>>;
+> = RuneReturnType<
+  QueryObserverResult<selectData, PrepareTransactionRequestErrorType>
+>;
 
 export function createPrepareTransactionRequest<
   parameterType extends viem_PrepareTransactionRequestParameterType,
@@ -62,7 +64,12 @@ export function createPrepareTransactionRequest<
     chainId,
     selectData
   > = {} as any,
-): CreatePrepareTransactionRequestReturnType<parameterType, config, chainId, selectData> {
+): CreatePrepareTransactionRequestReturnType<
+  parameterType,
+  config,
+  chainId,
+  selectData
+> {
   const resolvedParameters = $derived(resolveVal(parameters));
   const { to, query = {} } = $derived(resolvedParameters);
 
@@ -85,7 +92,12 @@ export function createPrepareTransactionRequest<
       enabled,
     })),
   ) as RuneReturnTypeToStore<
-    CreatePrepareTransactionRequestReturnType<parameterType, config, chainId, selectData>
+    CreatePrepareTransactionRequestReturnType<
+      parameterType,
+      config,
+      chainId,
+      selectData
+    >
   >;
 
   return storeToRune(store);

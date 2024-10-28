@@ -1,10 +1,15 @@
 import type { ConfigParameter, FuncOrVal, RuneReturnType } from "$lib/types";
-import { getConnectors, watchConnectors, type GetConnectorsReturnType } from "@wagmi/core";
+import {
+  getConnectors,
+  watchConnectors,
+  type GetConnectorsReturnType,
+} from "@wagmi/core";
 import { createConfig } from "./config.svelte";
 
 export type CreateConnectorsParameters = FuncOrVal<ConfigParameter>;
 
-export type CreateConnectorsReturnType = RuneReturnType<GetConnectorsReturnType>;
+export type CreateConnectorsReturnType =
+  RuneReturnType<GetConnectorsReturnType>;
 
 export function createConnectors(
   parameters: CreateConnectorsParameters = {},

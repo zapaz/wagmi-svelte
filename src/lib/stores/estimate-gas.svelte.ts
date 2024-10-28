@@ -27,18 +27,17 @@ export type CreateEstimateGasParameters<
   selectData = EstimateGasData,
 > = FuncOrVal<
   EstimateGasOptions<config, chainId> &
-  ConfigParameter<config> &
-  QueryParameter<
-    EstimateGasQueryFnData,
-    EstimateGasErrorType,
-    selectData,
-    EstimateGasQueryKey<config, chainId>
-  >
+    ConfigParameter<config> &
+    QueryParameter<
+      EstimateGasQueryFnData,
+      EstimateGasErrorType,
+      selectData,
+      EstimateGasQueryKey<config, chainId>
+    >
 >;
 
-export type CreateEstimateGasReturnType<selectData = EstimateGasData> = RuneReturnType<
-  QueryObserverResult<selectData, EstimateGasErrorType>
->;
+export type CreateEstimateGasReturnType<selectData = EstimateGasData> =
+  RuneReturnType<QueryObserverResult<selectData, EstimateGasErrorType>>;
 
 export function createEstimateGas(
   parameters: CreateEstimateGasParameters = {},
@@ -53,7 +52,9 @@ export function createEstimateGas(
       query: { enabled: resolvedParameters.account === undefined },
     })),
   );
-  const account = $derived(resolvedParameters.account ?? connectorClient.data?.account);
+  const account = $derived(
+    resolvedParameters.account ?? connectorClient.data?.account,
+  );
   const configChainId = $derived.by(createChainId());
   const chainId = $derived(resolvedParameters.chainId ?? configChainId);
 
@@ -65,9 +66,13 @@ export function createEstimateGas(
       connector,
     }),
   );
-  const enabled = $derived(Boolean((account || connector) && (query.enabled ?? true)));
+  const enabled = $derived(
+    Boolean((account || connector) && (query.enabled ?? true)),
+  );
 
-  const store = createQuery(runeToStore(() => ({ ...query, ...options, enabled })));
+  const store = createQuery(
+    runeToStore(() => ({ ...query, ...options, enabled })),
+  );
 
   return storeToRune(store);
 }

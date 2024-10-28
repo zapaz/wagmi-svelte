@@ -7,9 +7,20 @@ import {
   type QueryParameter,
   type RuneReturnType,
 } from "$lib/types";
-import { useQueryClient, type QueryObserverResult } from "@tanstack/svelte-query";
-import { type Config, type GetBlockNumberErrorType, type ResolvedRegister } from "@wagmi/core";
-import { type Evaluate, type UnionEvaluate, type UnionOmit } from "@wagmi/core/internal";
+import {
+  useQueryClient,
+  type QueryObserverResult,
+} from "@tanstack/svelte-query";
+import {
+  type Config,
+  type GetBlockNumberErrorType,
+  type ResolvedRegister,
+} from "@wagmi/core";
+import {
+  type Evaluate,
+  type UnionEvaluate,
+  type UnionOmit,
+} from "@wagmi/core/internal";
 import {
   getBlockNumberQueryOptions,
   type GetBlockNumberData,
@@ -26,38 +37,39 @@ import {
 
 export type CreateBlockNumberParameters<
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = GetBlockNumberData,
 > = FuncOrVal<
   Evaluate<
     GetBlockNumberOptions<config, chainId> &
-    ConfigParameter<config> &
-    QueryParameter<
-      GetBlockNumberQueryFnData,
-      GetBlockNumberErrorType,
-      selectData,
-      GetBlockNumberQueryKey<config, chainId>
-    > & {
-      watch?:
-      | boolean
-      | UnionEvaluate<
-        UnionOmit<
-          CreateWatchBlockNumberParameters<config, chainId>,
-          "chainId" | "config" | "onBlockNumber" | "onError"
-        >
-      >
-      | undefined;
-    }
+      ConfigParameter<config> &
+      QueryParameter<
+        GetBlockNumberQueryFnData,
+        GetBlockNumberErrorType,
+        selectData,
+        GetBlockNumberQueryKey<config, chainId>
+      > & {
+        watch?:
+          | boolean
+          | UnionEvaluate<
+              UnionOmit<
+                CreateWatchBlockNumberParameters<config, chainId>,
+                "chainId" | "config" | "onBlockNumber" | "onError"
+              >
+            >
+          | undefined;
+      }
   >
 >;
 
-export type CreateBlockNumberReturnType<selectData = GetBlockNumberData> = RuneReturnType<
-  QueryObserverResult<selectData, GetBlockNumberErrorType>
->;
+export type CreateBlockNumberReturnType<selectData = GetBlockNumberData> =
+  RuneReturnType<QueryObserverResult<selectData, GetBlockNumberErrorType>>;
 
 export function createBlockNumber<
   config extends Config = ResolvedRegister["config"],
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = GetBlockNumberData,
 >(
   parameters: CreateBlockNumberParameters<config, chainId, selectData> = {},
@@ -84,7 +96,8 @@ export function createBlockNumber<
       ...(typeof watch === "object" ? watch : {}),
     } as CreateWatchBlockNumberParameters),
     enabled: Boolean(
-      (query.enabled ?? true) && (typeof watch === "object" ? watch.enabled : watch),
+      (query.enabled ?? true) &&
+        (typeof watch === "object" ? watch.enabled : watch),
     ),
     onBlockNumber(blockNumber) {
       queryClient.setQueryData(options.queryKey, blockNumber);

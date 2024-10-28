@@ -8,7 +8,11 @@ import {
   type RuneReturnType,
 } from "$lib/types";
 import type { QueryObserverResult } from "@tanstack/svelte-query";
-import type { Config, ResolvedRegister, WaitForTransactionReceiptErrorType } from "@wagmi/core";
+import type {
+  Config,
+  ResolvedRegister,
+  WaitForTransactionReceiptErrorType,
+} from "@wagmi/core";
 import {
   waitForTransactionReceiptQueryOptions,
   type WaitForTransactionReceiptData,
@@ -23,33 +27,42 @@ import type { Evaluate } from "@wagmi/core/internal";
 
 export type CreateWaitForTransactionReceiptParameters<
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = WaitForTransactionReceiptData<config, chainId>,
 > = FuncOrVal<
   Evaluate<
     WaitForTransactionReceiptOptions<config, chainId> &
-    ConfigParameter<config> &
-    QueryParameter<
-      WaitForTransactionReceiptQueryFnData<config, chainId>,
-      WaitForTransactionReceiptErrorType,
-      selectData,
-      WaitForTransactionReceiptQueryKey<config, chainId>
-    >
+      ConfigParameter<config> &
+      QueryParameter<
+        WaitForTransactionReceiptQueryFnData<config, chainId>,
+        WaitForTransactionReceiptErrorType,
+        selectData,
+        WaitForTransactionReceiptQueryKey<config, chainId>
+      >
   >
 >;
 
 export type CreateWaitForTransactionReceiptReturnType<
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = WaitForTransactionReceiptData<config, chainId>,
-> = RuneReturnType<QueryObserverResult<selectData, WaitForTransactionReceiptErrorType>>;
+> = RuneReturnType<
+  QueryObserverResult<selectData, WaitForTransactionReceiptErrorType>
+>;
 
 export function createWaitForTransactionReceipt<
   config extends Config = ResolvedRegister["config"],
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = WaitForTransactionReceiptData<config, chainId>,
 >(
-  parameters: CreateWaitForTransactionReceiptParameters<config, chainId, selectData> = {},
+  parameters: CreateWaitForTransactionReceiptParameters<
+    config,
+    chainId,
+    selectData
+  > = {},
 ): CreateWaitForTransactionReceiptReturnType<config, chainId, selectData> {
   const resolvedParameters = $derived(resolveVal(parameters));
   const { hash, query = {} } = $derived(resolvedParameters);

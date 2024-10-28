@@ -29,24 +29,31 @@ export type CreateTransactionConfirmationsParameters<
   selectData = GetTransactionConfirmationsData,
 > = FuncOrVal<
   GetTransactionConfirmationsOptions<config, chainId> &
-  ConfigParameter<config> &
-  QueryParameter<
-    GetTransactionConfirmationsQueryFnData,
-    GetTransactionConfirmationsErrorType,
-    selectData,
-    GetTransactionConfirmationsQueryKey<config, chainId>
-  >
+    ConfigParameter<config> &
+    QueryParameter<
+      GetTransactionConfirmationsQueryFnData,
+      GetTransactionConfirmationsErrorType,
+      selectData,
+      GetTransactionConfirmationsQueryKey<config, chainId>
+    >
 >;
 
-export type CreateTransactionConfirmationsReturnType<selectData = GetTransactionConfirmationsData> =
-  RuneReturnType<QueryObserverResult<selectData, GetTransactionConfirmationsErrorType>>;
+export type CreateTransactionConfirmationsReturnType<
+  selectData = GetTransactionConfirmationsData,
+> = RuneReturnType<
+  QueryObserverResult<selectData, GetTransactionConfirmationsErrorType>
+>;
 
 export function createTransactionConfirmations<
   config extends Config = ResolvedRegister["config"],
   chainId extends config["chains"][number]["id"] | undefined = undefined,
   selectData = GetTransactionConfirmationsData,
 >(
-  parameters: CreateTransactionConfirmationsParameters<config, chainId, selectData> = {} as any,
+  parameters: CreateTransactionConfirmationsParameters<
+    config,
+    chainId,
+    selectData
+  > = {} as any,
 ): CreateTransactionConfirmationsReturnType<selectData> {
   const resolvedParameters = $derived(resolveVal(parameters));
   const { hash, transactionReceipt, query = {} } = $derived(resolvedParameters);
@@ -63,11 +70,15 @@ export function createTransactionConfirmations<
   );
   const enabled = $derived(
     Boolean(
-      !(hash && transactionReceipt) && (hash || transactionReceipt) && (query.enabled ?? true),
+      !(hash && transactionReceipt) &&
+        (hash || transactionReceipt) &&
+        (query.enabled ?? true),
     ),
   );
 
-  const store = createQuery(runeToStore(() => ({ ...query, ...options, enabled })));
+  const store = createQuery(
+    runeToStore(() => ({ ...query, ...options, enabled })),
+  );
 
   return storeToRune(store);
 }

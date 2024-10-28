@@ -16,12 +16,13 @@ import { createChainId } from "./chain-id.svelte";
 
 export type CreateWatchPendingTransactionsParameters<
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
 > = FuncOrVal<
   UnionEvaluate<
     UnionPartial<WatchPendingTransactionsParameters<config, chainId>> &
-    ConfigParameter<config> &
-    EnabledParameter
+      ConfigParameter<config> &
+      EnabledParameter
   >
 >;
 
@@ -29,12 +30,20 @@ export type CreateWatchPendingTransactionsReturnType = void;
 
 export function createWatchPendingTransactions<
   config extends Config = ResolvedRegister["config"],
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
 >(
-  parameters: CreateWatchPendingTransactionsParameters<config, chainId> = {} as any,
+  parameters: CreateWatchPendingTransactionsParameters<
+    config,
+    chainId
+  > = {} as any,
 ): CreateWatchPendingTransactionsReturnType {
   const resolvedParameters = $derived(resolveVal(parameters));
-  const { enabled = true, onTransactions, ...rest } = $derived(resolvedParameters);
+  const {
+    enabled = true,
+    onTransactions,
+    ...rest
+  } = $derived(resolvedParameters);
 
   const config = $derived.by(createConfig(parameters));
   const configChainId = $derived.by(createChainId());

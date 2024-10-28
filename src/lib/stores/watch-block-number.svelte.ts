@@ -16,7 +16,8 @@ import { createChainId } from "./chain-id.svelte";
 
 export type CreateWatchBlockNumberParameters<
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
 > = FuncOrVal<
   UnionEvaluate<
     UnionPartial<WatchBlockNumberParameters<config, chainId>> &
@@ -29,7 +30,8 @@ export type CreateWatchBlockNumberReturnType = void;
 
 export function createWatchBlockNumber<
   config extends Config = ResolvedRegister["config"],
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
 >(
   parameters: CreateWatchBlockNumberParameters<config, chainId> = {} as any,
 ): CreateWatchBlockNumberReturnType {

@@ -8,7 +8,11 @@ import {
   type RuneReturnType,
 } from "$lib/types";
 import type { QueryObserverResult } from "@tanstack/svelte-query";
-import { type Config, type ReadContractsErrorType, type ResolvedRegister } from "@wagmi/core";
+import {
+  type Config,
+  type ReadContractsErrorType,
+  type ResolvedRegister,
+} from "@wagmi/core";
 import { type Evaluate } from "@wagmi/core/internal";
 import {
   readContractsQueryOptions,
@@ -29,13 +33,13 @@ export type CreateReadContractsParameters<
 > = FuncOrVal<
   Evaluate<
     ReadContractsOptions<contracts, allowFailure, config> &
-    ConfigParameter<config> &
-    QueryParameter<
-      ReadContractsQueryFnData<contracts, allowFailure>,
-      ReadContractsErrorType,
-      selectData,
-      ReadContractsQueryKey<contracts, allowFailure, config>
-    >
+      ConfigParameter<config> &
+      QueryParameter<
+        ReadContractsQueryFnData<contracts, allowFailure>,
+        ReadContractsErrorType,
+        selectData,
+        ReadContractsQueryKey<contracts, allowFailure, config>
+      >
   >
 >;
 
@@ -51,7 +55,12 @@ export function createReadContracts<
   config extends Config = ResolvedRegister["config"],
   selectData = ReadContractsData<contracts, allowFailure>,
 >(
-  parameters: CreateReadContractsParameters<contracts, allowFailure, config, selectData> = {},
+  parameters: CreateReadContractsParameters<
+    contracts,
+    allowFailure,
+    config,
+    selectData
+  > = {},
 ): CreateReadContractsReturnType<contracts, allowFailure, selectData> {
   const resolvedParameters = $derived(resolveVal(parameters));
   const { contracts = [], query = {} } = $derived(resolvedParameters);
@@ -60,16 +69,20 @@ export function createReadContracts<
   const chainId = $derived.by(createChainId());
 
   const options = $derived(
-    readContractsQueryOptions<config, contracts, allowFailure>(config as config, {
-      ...resolvedParameters,
-      chainId,
-    }),
+    readContractsQueryOptions<config, contracts, allowFailure>(
+      config as config,
+      {
+        ...resolvedParameters,
+        chainId,
+      },
+    ),
   );
 
   const enabled = $derived.by(() => {
     let isContractsValid = false;
     for (const contract of contracts) {
-      const { abi, address, functionName } = contract as ContractFunctionParameters;
+      const { abi, address, functionName } =
+        contract as ContractFunctionParameters;
       if (!abi || !address || !functionName) {
         isContractsValid = false;
         break;

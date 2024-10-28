@@ -6,7 +6,11 @@ import {
   type RuneReturnType,
 } from "$lib/types";
 import type { QueryObserverResult } from "@tanstack/svelte-query";
-import { type Config, type EstimateFeesPerGasErrorType, type ResolvedRegister } from "@wagmi/core";
+import {
+  type Config,
+  type EstimateFeesPerGasErrorType,
+  type ResolvedRegister,
+} from "@wagmi/core";
 import { type Evaluate } from "@wagmi/core/internal";
 import {
   type EstimateFeesPerGasData,
@@ -28,20 +32,22 @@ export type CreateEstimateFeesPerGasParameters<
 > = FuncOrVal<
   Evaluate<
     EstimateFeesPerGasOptions<type, config> &
-    ConfigParameter<config> &
-    QueryParameter<
-      EstimateFeesPerGasQueryFnData<type>,
-      EstimateFeesPerGasErrorType,
-      selectData,
-      EstimateFeesPerGasQueryKey<config, type>
-    >
+      ConfigParameter<config> &
+      QueryParameter<
+        EstimateFeesPerGasQueryFnData<type>,
+        EstimateFeesPerGasErrorType,
+        selectData,
+        EstimateFeesPerGasQueryKey<config, type>
+      >
   >
 >;
 
 export type CreateEstimateFeesPerGasReturnType<
   type extends FeeValuesType = FeeValuesType,
   selectData = EstimateFeesPerGasData<type>,
-> = RuneReturnType<QueryObserverResult<selectData, EstimateFeesPerGasErrorType>>;
+> = RuneReturnType<
+  QueryObserverResult<selectData, EstimateFeesPerGasErrorType>
+>;
 
 export function createEstimateFeesPerGas<
   config extends Config = ResolvedRegister["config"],

@@ -1,6 +1,14 @@
 import type { CreateMutationParameters } from "$lib/query";
-import { resolveVal, type ConfigParameter, type FuncOrVal, type RuneReturnType } from "$lib/types";
-import { createMutation, type MutationObserverResult } from "@tanstack/svelte-query";
+import {
+  resolveVal,
+  type ConfigParameter,
+  type FuncOrVal,
+  type RuneReturnType,
+} from "$lib/types";
+import {
+  createMutation,
+  type MutationObserverResult,
+} from "@tanstack/svelte-query";
 import { type Connector, type ReconnectErrorType } from "@wagmi/core";
 import type { Evaluate } from "@wagmi/core/internal";
 import {
@@ -17,15 +25,25 @@ export type CreateReconnectParameters<context = unknown> = FuncOrVal<
   Evaluate<
     ConfigParameter & {
       mutation?:
-      | CreateMutationParameters<ReconnectData, ReconnectErrorType, ReconnectVariables, context>
-      | undefined;
+        | CreateMutationParameters<
+            ReconnectData,
+            ReconnectErrorType,
+            ReconnectVariables,
+            context
+          >
+        | undefined;
     }
   >
 >;
 
 export type CreateReconnectReturnType<context = unknown> = RuneReturnType<
   Evaluate<
-    MutationObserverResult<ReconnectData, ReconnectErrorType, ReconnectVariables, context> & {
+    MutationObserverResult<
+      ReconnectData,
+      ReconnectErrorType,
+      ReconnectVariables,
+      context
+    > & {
       connectors: readonly Connector[];
       reconnect: ReconnectMutate<context>;
       reconnectAsync: ReconnectMutateAsync<context>;
@@ -42,7 +60,12 @@ export function createReconnect<context = unknown>(
   const config = $derived.by(createConfig(parameters));
 
   const mutationOptions = $derived(reconnectMutationOptions(config));
-  const store = createMutation<ReconnectData, ReconnectErrorType, ReconnectVariables, context>(
+  const store = createMutation<
+    ReconnectData,
+    ReconnectErrorType,
+    ReconnectVariables,
+    context
+  >(
     runeToStore(() => ({
       ...mutation,
       ...mutationOptions,

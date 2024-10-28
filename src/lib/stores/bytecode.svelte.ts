@@ -8,7 +8,11 @@ import {
   type RuneReturnType,
 } from "$lib/types";
 import type { QueryObserverResult } from "@tanstack/svelte-query";
-import { type Config, type GetBytecodeErrorType, type ResolvedRegister } from "@wagmi/core";
+import {
+  type Config,
+  type GetBytecodeErrorType,
+  type ResolvedRegister,
+} from "@wagmi/core";
 import type { Evaluate } from "@wagmi/core/internal";
 import {
   getBytecodeQueryOptions,
@@ -26,19 +30,18 @@ export type CreateBytecodeParameters<
 > = FuncOrVal<
   Evaluate<
     GetBytecodeOptions<config> &
-    ConfigParameter<config> &
-    QueryParameter<
-      GetBytecodeQueryFnData,
-      GetBytecodeErrorType,
-      selectData,
-      GetBytecodeQueryKey<config>
-    >
+      ConfigParameter<config> &
+      QueryParameter<
+        GetBytecodeQueryFnData,
+        GetBytecodeErrorType,
+        selectData,
+        GetBytecodeQueryKey<config>
+      >
   >
 >;
 
-export type CreateBytecodeReturnType<selectData = GetBytecodeData> = RuneReturnType<
-  QueryObserverResult<selectData, GetBytecodeErrorType>
->;
+export type CreateBytecodeReturnType<selectData = GetBytecodeData> =
+  RuneReturnType<QueryObserverResult<selectData, GetBytecodeErrorType>>;
 
 export function createBytecode<
   config extends Config = ResolvedRegister["config"],
@@ -61,7 +64,9 @@ export function createBytecode<
   );
   const enabled = $derived(Boolean(address && (query.enabled ?? true)));
 
-  const store = createQuery(runeToStore(() => ({ ...query, ...options, enabled })));
+  const store = createQuery(
+    runeToStore(() => ({ ...query, ...options, enabled })),
+  );
 
   return storeToRune(store);
 }

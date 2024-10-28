@@ -21,12 +21,15 @@ export type CreateWatchContractEventParameters<
   eventName extends ContractEventName<abi> = ContractEventName<abi>,
   strict extends boolean | undefined = undefined,
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
 > = FuncOrVal<
   UnionEvaluate<
-    UnionPartial<WatchContractEventParameters<abi, eventName, strict, config, chainId>> &
-    ConfigParameter<config> &
-    EnabledParameter
+    UnionPartial<
+      WatchContractEventParameters<abi, eventName, strict, config, chainId>
+    > &
+      ConfigParameter<config> &
+      EnabledParameter
   >
 >;
 
@@ -37,7 +40,8 @@ export function createWatchContractEvent<
   eventName extends ContractEventName<abi>,
   strict extends boolean | undefined = undefined,
   config extends Config = ResolvedRegister["config"],
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
 >(
   parameters: CreateWatchContractEventParameters<
     abi,

@@ -12,11 +12,12 @@ export type CreateChainsParameters<config extends Config = Config> = FuncOrVal<
   ConfigParameter<config>
 >;
 
-export type CreateChainsReturnType<config extends Config = Config> = RuneReturnType<
-  GetChainsReturnType<config>
->;
+export type CreateChainsReturnType<config extends Config = Config> =
+  RuneReturnType<GetChainsReturnType<config>>;
 
-export function createChains<config extends Config = ResolvedRegister["config"]>(
+export function createChains<
+  config extends Config = ResolvedRegister["config"],
+>(
   parameters: CreateChainsParameters<config> = {},
 ): CreateChainsReturnType<config> {
   const config = $derived.by(createConfig(parameters));

@@ -1,7 +1,19 @@
 import type { CreateMutationParameters } from "$lib/query";
-import { resolveVal, type ConfigParameter, type RuneReturnType, type FuncOrVal } from "$lib/types";
-import { createMutation, type MutationObserverResult } from "@tanstack/svelte-query";
-import type { Config, ResolvedRegister, SendTransactionErrorType } from "@wagmi/core";
+import {
+  resolveVal,
+  type ConfigParameter,
+  type RuneReturnType,
+  type FuncOrVal,
+} from "$lib/types";
+import {
+  createMutation,
+  type MutationObserverResult,
+} from "@tanstack/svelte-query";
+import type {
+  Config,
+  ResolvedRegister,
+  SendTransactionErrorType,
+} from "@wagmi/core";
 import type { Evaluate } from "@wagmi/core/internal";
 import {
   sendTransactionMutationOptions,
@@ -20,13 +32,13 @@ export type UseSendTransactionParameters<
   Evaluate<
     ConfigParameter<config> & {
       mutation?:
-      | CreateMutationParameters<
-        SendTransactionData,
-        SendTransactionErrorType,
-        SendTransactionVariables<config, config["chains"][number]["id"]>,
-        context
-      >
-      | undefined;
+        | CreateMutationParameters<
+            SendTransactionData,
+            SendTransactionErrorType,
+            SendTransactionVariables<config, config["chains"][number]["id"]>,
+            context
+          >
+        | undefined;
     }
   >
 >;
@@ -77,6 +89,7 @@ export function createSendTransaction<
     ...mutateResult,
     mutate: mutateResult.mutate as Return["mutate"],
     sendTransaction: mutateResult.mutate as Return["sendTransaction"],
-    sendTransactionAsync: mutateResult.mutateAsync as Return["sendTransactionAsync"],
+    sendTransactionAsync:
+      mutateResult.mutateAsync as Return["sendTransactionAsync"],
   });
 }

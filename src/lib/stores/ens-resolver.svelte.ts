@@ -8,7 +8,11 @@ import {
   type RuneReturnType,
 } from "$lib/types";
 import type { QueryObserverResult } from "@tanstack/svelte-query";
-import type { Config, GetEnsResolverErrorType, ResolvedRegister } from "@wagmi/core";
+import type {
+  Config,
+  GetEnsResolverErrorType,
+  ResolvedRegister,
+} from "@wagmi/core";
 import { type Evaluate } from "@wagmi/core/internal";
 import {
   type GetEnsResolverData,
@@ -26,19 +30,18 @@ export type CreateEnsResolverParameters<
 > = FuncOrVal<
   Evaluate<
     GetEnsResolverOptions<config> &
-    ConfigParameter<config> &
-    QueryParameter<
-      GetEnsResolverQueryFnData,
-      GetEnsResolverErrorType,
-      selectData,
-      GetEnsResolverQueryKey<config>
-    >
+      ConfigParameter<config> &
+      QueryParameter<
+        GetEnsResolverQueryFnData,
+        GetEnsResolverErrorType,
+        selectData,
+        GetEnsResolverQueryKey<config>
+      >
   >
 >;
 
-export type CreateEnsResolverReturnType<selectData = GetEnsResolverData> = RuneReturnType<
-  QueryObserverResult<selectData, GetEnsResolverErrorType>
->;
+export type CreateEnsResolverReturnType<selectData = GetEnsResolverData> =
+  RuneReturnType<QueryObserverResult<selectData, GetEnsResolverErrorType>>;
 
 export function createEnsResolver<
   config extends Config = ResolvedRegister["config"],
@@ -61,7 +64,9 @@ export function createEnsResolver<
   );
   const enabled = $derived(Boolean(name && (query.enabled ?? true)));
 
-  const store = createQuery(runeToStore(() => ({ ...query, ...options, enabled })));
+  const store = createQuery(
+    runeToStore(() => ({ ...query, ...options, enabled })),
+  );
 
   return storeToRune(store);
 }

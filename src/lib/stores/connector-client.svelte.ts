@@ -1,8 +1,20 @@
 import { createQuery, type CreateQueryParameters } from "$lib/query";
 import { runeToStore, storeToRune } from "$lib/runes.svelte";
-import { resolveVal, type ConfigParameter, type FuncOrVal, type RuneReturnType } from "$lib/types";
-import { useQueryClient, type QueryObserverResult } from "@tanstack/svelte-query";
-import type { Config, GetConnectorClientErrorType, ResolvedRegister } from "@wagmi/core";
+import {
+  resolveVal,
+  type ConfigParameter,
+  type FuncOrVal,
+  type RuneReturnType,
+} from "$lib/types";
+import {
+  useQueryClient,
+  type QueryObserverResult,
+} from "@tanstack/svelte-query";
+import type {
+  Config,
+  GetConnectorClientErrorType,
+  ResolvedRegister,
+} from "@wagmi/core";
 import { type Evaluate, type Omit } from "@wagmi/core/internal";
 import {
   getConnectorClientQueryOptions,
@@ -17,38 +29,43 @@ import { createConfig } from "./config.svelte";
 
 export type CreateConnectorClientParameters<
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = GetConnectorClientData<config, chainId>,
 > = FuncOrVal<
   Evaluate<
     GetConnectorClientOptions<config, chainId> &
-    ConfigParameter<config> & {
-      query?:
-      | Evaluate<
-        Omit<
-          CreateQueryParameters<
-            GetConnectorClientQueryFnData<config, chainId>,
-            GetConnectorClientErrorType,
-            selectData,
-            GetConnectorClientQueryKey<config, chainId>
-          >,
-          "gcTime" | "staleTime"
-        >
-      >
-      | undefined;
-    }
+      ConfigParameter<config> & {
+        query?:
+          | Evaluate<
+              Omit<
+                CreateQueryParameters<
+                  GetConnectorClientQueryFnData<config, chainId>,
+                  GetConnectorClientErrorType,
+                  selectData,
+                  GetConnectorClientQueryKey<config, chainId>
+                >,
+                "gcTime" | "staleTime"
+              >
+            >
+          | undefined;
+      }
   >
 >;
 
 export type CreateConnectorClientReturnType<
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = GetConnectorClientData<config, chainId>,
-> = RuneReturnType<QueryObserverResult<selectData, GetConnectorClientErrorType>>;
+> = RuneReturnType<
+  QueryObserverResult<selectData, GetConnectorClientErrorType>
+>;
 
 export function createConnectorClient<
   config extends Config = ResolvedRegister["config"],
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = GetConnectorClientData<config, chainId>,
 >(
   parameters: CreateConnectorClientParameters<config, chainId, selectData> = {},
@@ -69,7 +86,9 @@ export function createConnectorClient<
       connector: resolvedParameters.connector ?? account.connector,
     }),
   );
-  const enabled = $derived(Boolean(account.status !== "disconnected" && (query.enabled ?? true)));
+  const enabled = $derived(
+    Boolean(account.status !== "disconnected" && (query.enabled ?? true)),
+  );
 
   $effect(() => {
     if (account.address) queryClient.invalidateQueries({ queryKey });

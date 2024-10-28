@@ -8,7 +8,11 @@ import {
   type FuncOrVal,
 } from "$lib/types";
 import { type QueryObserverResult } from "@tanstack/svelte-query";
-import { type Config, type GetEnsAddressErrorType, type ResolvedRegister } from "@wagmi/core";
+import {
+  type Config,
+  type GetEnsAddressErrorType,
+  type ResolvedRegister,
+} from "@wagmi/core";
 import { type Evaluate } from "@wagmi/core/internal";
 import {
   getEnsAddressQueryOptions,
@@ -26,19 +30,18 @@ export type CreateEnsAddressParameters<
 > = FuncOrVal<
   Evaluate<
     GetEnsAddressOptions<config> &
-    ConfigParameter<config> &
-    QueryParameter<
-      GetEnsAddressQueryFnData,
-      GetEnsAddressErrorType,
-      selectData,
-      GetEnsAddressQueryKey<config>
-    >
+      ConfigParameter<config> &
+      QueryParameter<
+        GetEnsAddressQueryFnData,
+        GetEnsAddressErrorType,
+        selectData,
+        GetEnsAddressQueryKey<config>
+      >
   >
 >;
 
-export type CreateEnsAddressReturnType<selectData = GetEnsAddressData> = RuneReturnType<
-  QueryObserverResult<selectData, GetEnsAddressErrorType>
->;
+export type CreateEnsAddressReturnType<selectData = GetEnsAddressData> =
+  RuneReturnType<QueryObserverResult<selectData, GetEnsAddressErrorType>>;
 
 export function createEnsAddress<
   config extends Config = ResolvedRegister["config"],
@@ -61,7 +64,9 @@ export function createEnsAddress<
   );
   const enabled = $derived(Boolean(name && (query.enabled ?? true)));
 
-  const store = createQuery(runeToStore(() => ({ ...query, ...options, enabled })));
+  const store = createQuery(
+    runeToStore(() => ({ ...query, ...options, enabled })),
+  );
 
   return storeToRune(store);
 }

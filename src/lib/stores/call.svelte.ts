@@ -8,7 +8,11 @@ import {
   type RuneReturnType,
 } from "$lib/types";
 import type { QueryObserverResult } from "@tanstack/svelte-query";
-import { type CallErrorType, type Config, type ResolvedRegister } from "@wagmi/core";
+import {
+  type CallErrorType,
+  type Config,
+  type ResolvedRegister,
+} from "@wagmi/core";
 import type { Evaluate } from "@wagmi/core/internal";
 import type { CallQueryFnData } from "@wagmi/core/query";
 import {
@@ -20,11 +24,19 @@ import {
 import { createChainId } from "./chain-id.svelte";
 import { createConfig } from "./config.svelte";
 
-export type CreateCallParameters<config extends Config = Config, selectData = CallData> = FuncOrVal<
+export type CreateCallParameters<
+  config extends Config = Config,
+  selectData = CallData,
+> = FuncOrVal<
   Evaluate<
     CallOptions<config> &
-    ConfigParameter<config> &
-    QueryParameter<CallQueryFnData, CallErrorType, selectData, CallQueryKey<config>>
+      ConfigParameter<config> &
+      QueryParameter<
+        CallQueryFnData,
+        CallErrorType,
+        selectData,
+        CallQueryKey<config>
+      >
   >
 >;
 
@@ -35,7 +47,9 @@ export type CreateCallReturnType<selectData = CallData> = RuneReturnType<
 export function createCall<
   config extends Config = ResolvedRegister["config"],
   selectData = CallData,
->(parameters: CreateCallParameters<config, selectData> = {}): CreateCallReturnType<selectData> {
+>(
+  parameters: CreateCallParameters<config, selectData> = {},
+): CreateCallReturnType<selectData> {
   const resolvedParameters = $derived(resolveVal(parameters));
   const { query = {} } = $derived(resolvedParameters);
 

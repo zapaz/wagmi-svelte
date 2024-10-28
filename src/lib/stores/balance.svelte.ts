@@ -26,21 +26,23 @@ export type CreateBalanceParameters<
 > = FuncOrVal<
   Evaluate<
     GetBalanceOptions<config> &
-    ConfigParameter<config> &
-    QueryParameter<
-      GetBalanceQueryFnData,
-      GetBalanceErrorType,
-      selectData,
-      GetBalanceQueryKey<config>
-    >
+      ConfigParameter<config> &
+      QueryParameter<
+        GetBalanceQueryFnData,
+        GetBalanceErrorType,
+        selectData,
+        GetBalanceQueryKey<config>
+      >
   >
 >;
 
-export type CreateBalanceReturnType<selectData = GetBalanceData> = RuneReturnType<
-  QueryObserverResult<selectData, GetBalanceErrorType>
->;
+export type CreateBalanceReturnType<selectData = GetBalanceData> =
+  RuneReturnType<QueryObserverResult<selectData, GetBalanceErrorType>>;
 
-export const createBalance = <config extends Config = Config, selectData = GetBalanceData>(
+export const createBalance = <
+  config extends Config = Config,
+  selectData = GetBalanceData,
+>(
   parameters: CreateBalanceParameters<config, selectData> = {},
 ): CreateBalanceReturnType<selectData> => {
   const resolvedParameters = $derived(resolveVal(parameters));
@@ -58,7 +60,9 @@ export const createBalance = <config extends Config = Config, selectData = GetBa
   );
   const enabled = $derived(Boolean(address && (query.enabled ?? true)));
 
-  const store = createQuery(runeToStore(() => ({ ...query, ...options, enabled })));
+  const store = createQuery(
+    runeToStore(() => ({ ...query, ...options, enabled })),
+  );
 
   return storeToRune(store);
 };

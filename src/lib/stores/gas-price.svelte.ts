@@ -22,28 +22,29 @@ import { createConfig } from "./config.svelte";
 
 export type CreateGasPriceParameters<
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = GetGasPriceData,
 > = FuncOrVal<
   Evaluate<
     GetGasPriceOptions<config, chainId> &
-    ConfigParameter<config> &
-    QueryParameter<
-      GetGasPriceQueryFnData,
-      GetGasPriceErrorType,
-      selectData,
-      GetGasPriceQueryKey<config, chainId>
-    >
+      ConfigParameter<config> &
+      QueryParameter<
+        GetGasPriceQueryFnData,
+        GetGasPriceErrorType,
+        selectData,
+        GetGasPriceQueryKey<config, chainId>
+      >
   >
 >;
 
-export type CreateGasPriceReturnType<selectData = GetGasPriceData> = RuneReturnType<
-  QueryObserverResult<selectData, GetGasPriceErrorType>
->;
+export type CreateGasPriceReturnType<selectData = GetGasPriceData> =
+  RuneReturnType<QueryObserverResult<selectData, GetGasPriceErrorType>>;
 
 export const createGasPrice = <
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = GetGasPriceData,
 >(
   parameters: CreateGasPriceParameters<config, chainId, selectData> = {},

@@ -12,7 +12,12 @@ import {
   type QueryObserverResult,
   type StoreOrVal,
 } from "@tanstack/svelte-query";
-import { deepEqual, type Evaluate, type ExactPartial, type Omit } from "@wagmi/core/internal";
+import {
+  deepEqual,
+  type Evaluate,
+  type ExactPartial,
+  type Omit,
+} from "@wagmi/core/internal";
 import { hashFn } from "@wagmi/core/query";
 import { derived, get, type Readable } from "svelte/store";
 
@@ -23,19 +28,26 @@ export type CreateMutationParameters<
   variables = void,
   context = unknown,
 > =
-  CreateMutationOptions<data, error, Evaluate<variables>, context> extends Readable<infer T>
-  ? Readable<Omit<T, "mutationFn" | "mutationKey" | "throwOnError">>
-  : Omit<
-    CreateMutationOptions<data, error, Evaluate<variables>, context>,
-    "mutationFn" | "mutationKey" | "throwOnError"
-  >;
+  CreateMutationOptions<
+    data,
+    error,
+    Evaluate<variables>,
+    context
+  > extends Readable<infer T>
+    ? Readable<Omit<T, "mutationFn" | "mutationKey" | "throwOnError">>
+    : Omit<
+        CreateMutationOptions<data, error, Evaluate<variables>, context>,
+        "mutationFn" | "mutationKey" | "throwOnError"
+      >;
 
 export type CreateMutationReturnType<
   data = unknown,
   error = Error,
   variables = void,
   context = unknown,
-> = Evaluate<Omit<MutationObserverResult<data, error, variables, context>, "mutate">>;
+> = Evaluate<
+  Omit<MutationObserverResult<data, error, variables, context>, "mutate">
+>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -45,13 +57,20 @@ export type CreateQueryParameters<
   data = queryFnData,
   queryKey extends QueryKey = QueryKey,
 > = Evaluate<
-  ExactPartial<Omit<CreateQueryOptions<queryFnData, error, data, queryKey>, "initialData">> & {
+  ExactPartial<
+    Omit<CreateQueryOptions<queryFnData, error, data, queryKey>, "initialData">
+  > & {
     // Fix `initialData` type
-    initialData?: CreateQueryOptions<queryFnData, error, data, queryKey>["initialData"] | undefined;
+    initialData?:
+      | CreateQueryOptions<queryFnData, error, data, queryKey>["initialData"]
+      | undefined;
   }
 >;
 
-export type CreateQueryReturnType<data = unknown, error = DefaultError> = Evaluate<
+export type CreateQueryReturnType<
+  data = unknown,
+  error = DefaultError,
+> = Evaluate<
   Readable<
     QueryObserverResult<data, error> & {
       queryKey: QueryKey;
@@ -62,7 +81,12 @@ export type CreateQueryReturnType<data = unknown, error = DefaultError> = Evalua
 // Adding some basic customization.
 // Ideally we don't have this function, but `import('@tanstack/svelte-query').createQuery` currently has some quirks where it is super hard to
 // pass down the inferred `initialData` type because of it's discriminated overload in the on `createQuery`.
-export function createQuery<queryFnData, error, data, queryKey extends QueryKey>(
+export function createQuery<
+  queryFnData,
+  error,
+  data,
+  queryKey extends QueryKey,
+>(
   parameters: StoreOrVal<
     CreateQueryParameters<queryFnData, error, data, queryKey> & {
       queryKey: QueryKey;
@@ -81,7 +105,10 @@ export function createQuery<queryFnData, error, data, queryKey extends QueryKey>
       }),
     ) as CreateQueryReturnType<data, error>;
 
-    return derived(result, (data) => ({ ...data, queryKey: get(parameters).queryKey }));
+    return derived(result, (data) => ({
+      ...data,
+      queryKey: get(parameters).queryKey,
+    }));
   }
 
   const result = tanstack_createQuery({
@@ -89,7 +116,10 @@ export function createQuery<queryFnData, error, data, queryKey extends QueryKey>
     ...(parameters as any),
     queryKeyHashFn: hashFn, // for bigint support
   }) as CreateQueryReturnType<data, error>;
-  return derived(result, (data) => ({ ...data, queryKey: parameters.queryKey }));
+  return derived(result, (data) => ({
+    ...data,
+    queryKey: parameters.queryKey,
+  }));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -103,13 +133,25 @@ export type CreateInfiniteQueryParameters<
   pageParam = unknown,
 > = Evaluate<
   Omit<
-    CreateInfiniteQueryOptions<queryFnData, error, data, queryData, queryKey, pageParam>,
+    CreateInfiniteQueryOptions<
+      queryFnData,
+      error,
+      data,
+      queryData,
+      queryKey,
+      pageParam
+    >,
     "initialData"
   > & {
     // Fix `initialData` type
     initialData?:
-    | CreateInfiniteQueryOptions<queryFnData, error, data, queryKey>["initialData"]
-    | undefined;
+      | CreateInfiniteQueryOptions<
+          queryFnData,
+          error,
+          data,
+          queryKey
+        >["initialData"]
+      | undefined;
   }
 >;
 
@@ -121,7 +163,12 @@ export type CreateInfiniteQueryReturnType<
 };
 
 // Adding some basic customization.
-export function createInfiniteQuery<queryFnData, error, data, queryKey extends QueryKey>(
+export function createInfiniteQuery<
+  queryFnData,
+  error,
+  data,
+  queryKey extends QueryKey,
+>(
   parameters: StoreOrVal<
     CreateInfiniteQueryParameters<queryFnData, error, data, queryKey> & {
       queryKey: QueryKey;
@@ -139,7 +186,10 @@ export function createInfiniteQuery<queryFnData, error, data, queryKey extends Q
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export function structuralSharing<data>(oldData: data | undefined, newData: data): data {
+export function structuralSharing<data>(
+  oldData: data | undefined,
+  newData: data,
+): data {
   if (deepEqual(oldData, newData)) return oldData as data;
   return replaceEqualDeep(oldData, newData);
 }

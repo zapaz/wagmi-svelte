@@ -1,7 +1,19 @@
 import type { CreateMutationParameters } from "$lib/query";
-import { resolveVal, type ConfigParameter, type FuncOrVal, type RuneReturnType } from "$lib/types";
-import { createMutation, type MutationObserverResult } from "@tanstack/svelte-query";
-import type { Config, ResolvedRegister, WriteContractErrorType } from "@wagmi/core";
+import {
+  resolveVal,
+  type ConfigParameter,
+  type FuncOrVal,
+  type RuneReturnType,
+} from "$lib/types";
+import {
+  createMutation,
+  type MutationObserverResult,
+} from "@tanstack/svelte-query";
+import type {
+  Config,
+  ResolvedRegister,
+  WriteContractErrorType,
+} from "@wagmi/core";
 import {
   type WriteContractData,
   type WriteContractMutate,
@@ -19,19 +31,19 @@ export type CreateWriteContractParameters<
 > = FuncOrVal<
   ConfigParameter<config> & {
     mutation?:
-    | CreateMutationParameters<
-      WriteContractData,
-      WriteContractErrorType,
-      WriteContractVariables<
-        Abi,
-        string,
-        readonly unknown[],
-        config,
-        config["chains"][number]["id"]
-      >,
-      context
-    >
-    | undefined;
+      | CreateMutationParameters<
+          WriteContractData,
+          WriteContractErrorType,
+          WriteContractVariables<
+            Abi,
+            string,
+            readonly unknown[],
+            config,
+            config["chains"][number]["id"]
+          >,
+          context
+        >
+      | undefined;
   }
 >;
 
@@ -42,7 +54,13 @@ export type CreateWriteContractReturnType<
   MutationObserverResult<
     WriteContractData,
     WriteContractErrorType,
-    WriteContractVariables<Abi, string, readonly unknown[], config, config["chains"][number]["id"]>,
+    WriteContractVariables<
+      Abi,
+      string,
+      readonly unknown[],
+      config,
+      config["chains"][number]["id"]
+    >,
     context
   > & {
     writeContract: WriteContractMutate<config, context>;
@@ -65,7 +83,13 @@ export function createWriteContract<
   const store = createMutation<
     WriteContractData,
     WriteContractErrorType,
-    WriteContractVariables<Abi, string, readonly unknown[], config, config["chains"][number]["id"]>,
+    WriteContractVariables<
+      Abi,
+      string,
+      readonly unknown[],
+      config,
+      config["chains"][number]["id"]
+    >,
     context
   >(
     runeToStore(() => ({
@@ -81,6 +105,7 @@ export function createWriteContract<
     ...mutateResult,
     mutate: mutateResult.mutate as Return["mutate"],
     writeContract: mutateResult.mutate as Return["writeContract"],
-    writeContractAsync: mutateResult.mutateAsync as Return["writeContractAsync"],
+    writeContractAsync:
+      mutateResult.mutateAsync as Return["writeContractAsync"],
   });
 }

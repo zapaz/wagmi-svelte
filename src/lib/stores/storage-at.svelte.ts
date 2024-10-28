@@ -6,7 +6,11 @@ import {
   type RuneReturnType,
 } from "$lib/types";
 import type { QueryObserverResult } from "@tanstack/svelte-query";
-import { type Config, type GetStorageAtErrorType, type ResolvedRegister } from "@wagmi/core";
+import {
+  type Config,
+  type GetStorageAtErrorType,
+  type ResolvedRegister,
+} from "@wagmi/core";
 import type { Evaluate } from "@wagmi/core/internal";
 import {
   type GetStorageAtData,
@@ -26,19 +30,18 @@ export type CreatesStorageAtParameters<
 > = FuncOrVal<
   Evaluate<
     GetStorageAtOptions<config> &
-    ConfigParameter<config> &
-    QueryParameter<
-      GetStorageAtQueryFnData,
-      GetStorageAtErrorType,
-      selectData,
-      GetStorageAtQueryKey<config>
-    >
+      ConfigParameter<config> &
+      QueryParameter<
+        GetStorageAtQueryFnData,
+        GetStorageAtErrorType,
+        selectData,
+        GetStorageAtQueryKey<config>
+      >
   >
 >;
 
-export type CreateStorageAtReturnType<selectData = GetStorageAtData> = RuneReturnType<
-  QueryObserverResult<selectData, GetStorageAtErrorType>
->;
+export type CreateStorageAtReturnType<selectData = GetStorageAtData> =
+  RuneReturnType<QueryObserverResult<selectData, GetStorageAtErrorType>>;
 
 export function createStorageAt<
   config extends Config = ResolvedRegister["config"],

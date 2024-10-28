@@ -1,6 +1,14 @@
 import type { CreateMutationParameters } from "$lib/query";
-import { resolveVal, type ConfigParameter, type FuncOrVal, type RuneReturnType } from "$lib/types";
-import { createMutation, type MutationObserverResult } from "@tanstack/svelte-query";
+import {
+  resolveVal,
+  type ConfigParameter,
+  type FuncOrVal,
+  type RuneReturnType,
+} from "$lib/types";
+import {
+  createMutation,
+  type MutationObserverResult,
+} from "@tanstack/svelte-query";
 import type { SignTypedDataErrorType } from "@wagmi/core";
 import type { Evaluate } from "@wagmi/core/internal";
 import {
@@ -17,13 +25,13 @@ export type CreateSignTypedDataParameters<context = unknown> = FuncOrVal<
   Evaluate<
     ConfigParameter & {
       mutation?:
-      | CreateMutationParameters<
-        SignTypedDataData,
-        SignTypedDataErrorType,
-        SignTypedDataVariables,
-        context
-      >
-      | undefined;
+        | CreateMutationParameters<
+            SignTypedDataData,
+            SignTypedDataErrorType,
+            SignTypedDataVariables,
+            context
+          >
+        | undefined;
     }
   >
 >;
@@ -70,6 +78,7 @@ export function createSignTypedData<context = unknown>(
     ...mutateResult,
     mutate: mutateResult.mutate as Return["mutate"],
     signTypedData: mutateResult.mutate as Return["signTypedData"],
-    signTypedDataAsync: mutateResult.mutateAsync as Return["signTypedDataAsync"],
+    signTypedDataAsync:
+      mutateResult.mutateAsync as Return["signTypedDataAsync"],
   });
 }

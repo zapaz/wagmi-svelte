@@ -7,11 +7,18 @@ import {
   type RuneReturnType,
   type RuneReturnTypeToStore,
 } from "$lib/types";
-import { useQueryClient, type QueryObserverResult } from "@tanstack/svelte-query";
+import {
+  useQueryClient,
+  type QueryObserverResult,
+} from "@tanstack/svelte-query";
 import { createAccount } from "./account.svelte";
 import { createChainId } from "./chain-id.svelte";
 import { createConfig } from "./config.svelte";
-import type { Config, GetWalletClientErrorType, ResolvedRegister } from "@wagmi/core";
+import type {
+  Config,
+  GetWalletClientErrorType,
+  ResolvedRegister,
+} from "@wagmi/core";
 import {
   getWalletClientQueryOptions,
   type GetWalletClientData,
@@ -23,38 +30,41 @@ import type { Evaluate } from "@wagmi/core/internal";
 
 export type CreateWalletClientParameters<
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = GetWalletClientData<config, chainId>,
 > = FuncOrVal<
   Evaluate<
     GetWalletClientOptions<config, chainId> &
-    ConfigParameter<config> & {
-      query?:
-      | Evaluate<
-        Omit<
-          CreateQueryParameters<
-            GetWalletClientQueryFnData<config, chainId>,
-            GetWalletClientErrorType,
-            selectData,
-            GetWalletClientQueryKey<config, chainId>
-          >,
-          "gcTime" | "staleTime"
-        >
-      >
-      | undefined;
-    }
+      ConfigParameter<config> & {
+        query?:
+          | Evaluate<
+              Omit<
+                CreateQueryParameters<
+                  GetWalletClientQueryFnData<config, chainId>,
+                  GetWalletClientErrorType,
+                  selectData,
+                  GetWalletClientQueryKey<config, chainId>
+                >,
+                "gcTime" | "staleTime"
+              >
+            >
+          | undefined;
+      }
   >
 >;
 
 export type CreateWalletClientReturnType<
   config extends Config = Config,
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = GetWalletClientData<config, chainId>,
 > = RuneReturnType<QueryObserverResult<selectData, GetWalletClientErrorType>>;
 
 export function createWalletClient<
   config extends Config = ResolvedRegister["config"],
-  chainId extends config["chains"][number]["id"] = config["chains"][number]["id"],
+  chainId extends
+    config["chains"][number]["id"] = config["chains"][number]["id"],
   selectData = GetWalletClientData<config, chainId>,
 >(
   parameters: CreateWalletClientParameters<config, chainId, selectData> = {},
@@ -75,7 +85,9 @@ export function createWalletClient<
       connector: resolvedParameters.connector ?? account.connector,
     }),
   );
-  const enabled = $derived(Boolean(account.status !== "disconnected" && (query.enabled ?? true)));
+  const enabled = $derived(
+    Boolean(account.status !== "disconnected" && (query.enabled ?? true)),
+  );
 
   $effect(() => {
     if (account.address) queryClient.invalidateQueries({ queryKey });

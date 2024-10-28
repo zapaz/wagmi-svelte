@@ -1,8 +1,21 @@
 import type { CreateMutationParameters } from "$lib/query";
 import { runeToStore, storeToRune } from "$lib/runes.svelte";
-import { resolveVal, type ConfigParameter, type FuncOrVal, type RuneReturnType } from "$lib/types";
-import { createMutation, type MutationObserverResult } from "@tanstack/svelte-query";
-import type { Config, ConnectErrorType, Connector, ResolvedRegister } from "@wagmi/core";
+import {
+  resolveVal,
+  type ConfigParameter,
+  type FuncOrVal,
+  type RuneReturnType,
+} from "$lib/types";
+import {
+  createMutation,
+  type MutationObserverResult,
+} from "@tanstack/svelte-query";
+import type {
+  Config,
+  ConnectErrorType,
+  Connector,
+  ResolvedRegister,
+} from "@wagmi/core";
 import type { Evaluate } from "@wagmi/core/internal";
 import {
   connectMutationOptions,
@@ -14,17 +27,20 @@ import {
 import { createConfig } from "./config.svelte";
 import { createConnectors } from "./connectors.svelte";
 
-export type CreateConnectParameters<config extends Config = Config, context = unknown> = FuncOrVal<
+export type CreateConnectParameters<
+  config extends Config = Config,
+  context = unknown,
+> = FuncOrVal<
   Evaluate<
     ConfigParameter<config> & {
       mutation?:
-      | CreateMutationParameters<
-        ConnectData<config>,
-        ConnectErrorType,
-        ConnectVariables<config>,
-        context
-      >
-      | undefined;
+        | CreateMutationParameters<
+            ConnectData<config>,
+            ConnectErrorType,
+            ConnectVariables<config>,
+            context
+          >
+        | undefined;
     }
   >
 >;
@@ -78,7 +94,8 @@ export function createConnect<
     config.subscribe(
       ({ status }) => status,
       (status, previousStatus) => {
-        if (previousStatus === "connected" && status === "disconnected") mutateResult.reset();
+        if (previousStatus === "connected" && status === "disconnected")
+          mutateResult.reset();
       },
     );
   });

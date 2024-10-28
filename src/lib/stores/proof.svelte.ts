@@ -24,15 +24,22 @@ export type CreateProofParameters<
   selectData = GetProofData,
 > = FuncOrVal<
   GetProofOptions<config> &
-  ConfigParameter<config> &
-  QueryParameter<GetProofQueryFnData, GetProofErrorType, selectData, GetProofQueryKey<config>>
+    ConfigParameter<config> &
+    QueryParameter<
+      GetProofQueryFnData,
+      GetProofErrorType,
+      selectData,
+      GetProofQueryKey<config>
+    >
 >;
 
 export type CreateProofReturnType<selectData = GetProofData> = RuneReturnType<
   QueryObserverResult<selectData, GetProofErrorType>
 >;
 
-export function createProof(parameters: CreateProofParameters = {}): CreateProofReturnType {
+export function createProof(
+  parameters: CreateProofParameters = {},
+): CreateProofReturnType {
   const resolvedParameters = $derived(resolveVal(parameters));
   const { address, storageKeys, query = {} } = $derived(resolvedParameters);
 
@@ -45,9 +52,13 @@ export function createProof(parameters: CreateProofParameters = {}): CreateProof
       chainId: resolvedParameters.chainId ?? chainId,
     }),
   );
-  const enabled = $derived(Boolean(address && storageKeys && (query.enabled ?? true)));
+  const enabled = $derived(
+    Boolean(address && storageKeys && (query.enabled ?? true)),
+  );
 
-  const store = createQuery(runeToStore(() => ({ ...query, ...options, enabled })));
+  const store = createQuery(
+    runeToStore(() => ({ ...query, ...options, enabled })),
+  );
 
   return storeToRune(store);
 }

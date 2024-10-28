@@ -8,7 +8,11 @@ import {
   type RuneReturnType,
 } from "$lib/types";
 import type { QueryObserverResult } from "@tanstack/svelte-query";
-import type { Config, ResolvedRegister, VerifyTypedDataErrorType } from "@wagmi/core";
+import type {
+  Config,
+  ResolvedRegister,
+  VerifyTypedDataErrorType,
+} from "@wagmi/core";
 import {
   verifyTypedDataQueryOptions,
   type VerifyTypedDataData,
@@ -28,18 +32,17 @@ export type CreateVerifyTypedDataParameters<
   selectData = VerifyTypedDataData,
 > = FuncOrVal<
   VerifyTypedDataOptions<typedData, primaryType, config> &
-  ConfigParameter<config> &
-  QueryParameter<
-    VerifyTypedDataQueryFnData,
-    VerifyTypedDataErrorType,
-    selectData,
-    VerifyTypedDataQueryKey<typedData, primaryType, config>
-  >
+    ConfigParameter<config> &
+    QueryParameter<
+      VerifyTypedDataQueryFnData,
+      VerifyTypedDataErrorType,
+      selectData,
+      VerifyTypedDataQueryKey<typedData, primaryType, config>
+    >
 >;
 
-export type CreateVerifyTypedDataReturnType<selectData = VerifyTypedDataData> = RuneReturnType<
-  QueryObserverResult<selectData, VerifyTypedDataErrorType>
->;
+export type CreateVerifyTypedDataReturnType<selectData = VerifyTypedDataData> =
+  RuneReturnType<QueryObserverResult<selectData, VerifyTypedDataErrorType>>;
 
 export function createVerifyTypedData<
   const typedData extends TypedData | Record<string, unknown>,
@@ -69,16 +72,28 @@ export function createVerifyTypedData<
   const chainId = $derived(resolvedParameters.chainId ?? configChainId);
 
   const options = $derived(
-    verifyTypedDataQueryOptions<config, typedData, primaryType>(config as config, {
-      ...resolvedParameters,
-      chainId,
-    }),
+    verifyTypedDataQueryOptions<config, typedData, primaryType>(
+      config as config,
+      {
+        ...resolvedParameters,
+        chainId,
+      },
+    ),
   );
   const enabled = $derived(
-    Boolean(address && message && primaryType && signature && types && (query.enabled ?? true)),
+    Boolean(
+      address &&
+        message &&
+        primaryType &&
+        signature &&
+        types &&
+        (query.enabled ?? true),
+    ),
   );
 
-  const store = createQuery(runeToStore(() => ({ ...query, ...options, enabled })));
+  const store = createQuery(
+    runeToStore(() => ({ ...query, ...options, enabled })),
+  );
 
   return storeToRune(store);
 }
