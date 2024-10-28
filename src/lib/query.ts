@@ -98,7 +98,6 @@ export function createQuery<
     const result = tanstack_createQuery(
       derived(parameters, ($parameters) => {
         return {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           ...$parameters,
           queryKeyHashFn: hashFn, // for bigint support
         } as any;
@@ -112,7 +111,6 @@ export function createQuery<
   }
 
   const result = tanstack_createQuery({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ...(parameters as any),
     queryKeyHashFn: hashFn, // for bigint support
   }) as CreateQueryReturnType<data, error>;
@@ -176,7 +174,6 @@ export function createInfiniteQuery<
   >,
 ): CreateInfiniteQueryReturnType<data, error> {
   const result = tanstack_createInfiniteQuery({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ...(parameters as any),
     queryKeyHashFn: hashFn, // for bigint support
   }) as CreateInfiniteQueryReturnType<data, error>;
