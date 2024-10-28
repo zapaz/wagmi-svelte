@@ -16,7 +16,7 @@ import type {
   Connector,
   ResolvedRegister,
 } from "@wagmi/core";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "$lib/types-utils";
 import {
   connectMutationOptions,
   type ConnectData,

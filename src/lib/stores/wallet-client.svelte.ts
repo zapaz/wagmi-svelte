@@ -26,7 +26,7 @@ import {
   type GetWalletClientQueryFnData,
   type GetWalletClientQueryKey,
 } from "@wagmi/core/query";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "$lib/types-utils";
 
 export type CreateWalletClientParameters<
   config extends Config = Config,

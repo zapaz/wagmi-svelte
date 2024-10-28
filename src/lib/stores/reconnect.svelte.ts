@@ -10,7 +10,7 @@ import {
   type MutationObserverResult,
 } from "@tanstack/svelte-query";
 import { type Connector, type ReconnectErrorType } from "@wagmi/core";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "$lib/types-utils";
 import {
   type ReconnectData,
   type ReconnectMutate,

@@ -15,7 +15,7 @@ import type {
   ResolvedRegister,
   SwitchAccountErrorType,
 } from "@wagmi/core";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "$lib/types-utils";
 import {
   type SwitchAccountData,
   type SwitchAccountMutate,

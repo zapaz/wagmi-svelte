@@ -13,7 +13,7 @@ import {
   type GetBytecodeErrorType,
   type ResolvedRegister,
 } from "@wagmi/core";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "$lib/types-utils";
 import {
   getBytecodeQueryOptions,
   type GetBytecodeData,

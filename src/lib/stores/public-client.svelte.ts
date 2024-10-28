@@ -12,7 +12,7 @@ import {
   getPublicClient,
   watchPublicClient,
 } from "@wagmi/core";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "$lib/types-utils";
 import { createConfig } from "./config.svelte";
 
 export type CreatePublicClientParameters<

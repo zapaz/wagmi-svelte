@@ -10,7 +10,7 @@ import {
   type MutationObserverResult,
 } from "@tanstack/svelte-query";
 import { type SignMessageErrorType } from "@wagmi/core";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "$lib/types-utils";
 import {
   type SignMessageData,
   type SignMessageMutate,

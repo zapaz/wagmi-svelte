@@ -13,7 +13,7 @@ import {
   type Config,
   type ResolvedRegister,
 } from "@wagmi/core";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "$lib/types-utils";
 import type { CallQueryFnData } from "@wagmi/core/query";
 import {
   callQueryOptions,

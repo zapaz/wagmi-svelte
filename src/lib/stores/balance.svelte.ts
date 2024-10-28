@@ -9,7 +9,7 @@ import {
 } from "$lib/types";
 import type { QueryObserverResult } from "@tanstack/svelte-query";
 import type { Config, GetBalanceErrorType } from "@wagmi/core";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "$lib/types-utils";
 import {
   getBalanceQueryOptions,
   type GetBalanceData,

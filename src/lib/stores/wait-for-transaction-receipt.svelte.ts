@@ -23,7 +23,7 @@ import {
 import { derived } from "svelte/store";
 import { createChainId } from "./chain-id.svelte";
 import { createConfig } from "./config.svelte";
-import type { Evaluate } from "@wagmi/core/internal";
+import type { Evaluate } from "$lib/types-utils";
 
 export type CreateWaitForTransactionReceiptParameters<
   config extends Config = Config,
